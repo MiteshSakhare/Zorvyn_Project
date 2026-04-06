@@ -1,0 +1,259 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/900.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #f9f9fb;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #f3f4f6;
+
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+
+    --border-color: rgba(31, 41, 55, 0.1);
+
+    --aurora-1: rgba(70, 126, 181, 0.08);
+    --aurora-2: rgba(16, 185, 129, 0.06);
+    --aurora-3: rgba(139, 92, 246, 0.05);
+  }
+
+  .dark {
+    --bg-main: #030712;
+    --bg-surface: #111827;
+    --bg-surface-hover: #1f2937;
+
+    --text-primary: #f9f9fb;
+    --text-secondary: #d1d5db;
+    --text-muted: #6b7280;
+
+    --border-color: rgba(249, 249, 251, 0.08);
+
+    --aurora-1: rgba(70, 126, 181, 0.12);
+    --aurora-2: rgba(16, 185, 129, 0.08);
+    --aurora-3: rgba(139, 92, 246, 0.07);
+  }
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Aurora Ambient Background ───────────────────────────── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aurora-bg::before,
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: aurora 20s ease-in-out infinite alternate;
+}
+
+.aurora-bg::before {
+  width: 50%;
+  height: 50%;
+  top: -15%;
+  left: -10%;
+  background: var(--aurora-1);
+}
+
+.aurora-bg::after {
+  width: 45%;
+  height: 45%;
+  bottom: -15%;
+  right: -10%;
+  background: var(--aurora-2);
+  animation-delay: -10s;
+  animation-direction: alternate-reverse;
+}
+
+.aurora-orb {
+  position: absolute;
+  width: 35%;
+  height: 35%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--aurora-3);
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: aurora 25s ease-in-out infinite alternate-reverse;
+  animation-delay: -5s;
+}
+
+@keyframes aurora {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(30px, -20px) scale(1.1); opacity: 0.8; }
+  66% { transform: translate(-20px, 15px) scale(0.95); opacity: 0.7; }
+  100% { transform: translate(10px, -10px) scale(1.05); opacity: 0.6; }
+}
+
+/* ── Component Classes ───────────────────────────────────── */
+@layer components {
+  .glass-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .glass-card:hover {
+    box-shadow:
+      0 8px 25px -5px rgba(0, 0, 0, 0.08),
+      0 4px 6px -1px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .glass-card {
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark .glass-card:hover {
+    border-color: rgba(70, 126, 181, 0.15);
+    box-shadow:
+      0 8px 25px -5px rgba(0, 0, 0, 0.4),
+      0 0 20px -5px rgba(70, 126, 181, 0.08);
+  }
+
+  .input-field {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: #467eb5;
+    box-shadow: 0 0 0 3px rgba(70, 126, 181, 0.2);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #346395;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px -3px rgba(52, 99, 149, 0.4);
+  }
+
+  .btn-primary:hover {
+    background-color: #2b4f7a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px -3px rgba(52, 99, 149, 0.5);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--bg-surface-hover);
+  }
+
+  .btn-ghost:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ── Scrollbar Styling ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ── Focus Visible ───────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #467eb5;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Selection ───────────────────────────────────────────── */
+::selection {
+  background-color: rgba(70, 126, 181, 0.25);
+  color: inherit;
+}
+
+/* ── Accessibility: Reduced Motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .aurora-bg::before,
+  .aurora-bg::after,
+  .aurora-orb {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+}

@@ -1,0 +1,26 @@
+[build]
+builder = "heroku.buildpacks"
+buildpacks = ["heroku/python"]
+
+[env]
+PYTHON_VERSION = "3.11.0"
+
+[[services]]
+name = "backend"
+plan = "hobby"
+
+  [services.build]
+  builder = "heroku.buildpacks"
+
+  [services.env]
+  PYTHON_VERSION = "3.11.0"
+
+[[services]]
+name = "postgres"
+image = "postgres:16"
+plan = "hobby"
+
+  [services.env]
+  POSTGRES_DB = "zorvyn_finance"
+  POSTGRES_USER = "postgres"
+  POSTGRES_PASSWORD = "postgres"
